@@ -12,6 +12,7 @@ import { useAuth, useRegister } from "../hooks/auth";
 import { googleProvider, auth } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
 import { FaGoogle } from "react-icons/fa";
+import "../global.css"
 
 const Signup = () => {
   const { register: signup, isLoading, error } = useRegister();
@@ -185,9 +186,10 @@ const Signup = () => {
       <span className="text-neutral-600 pr-2">or</span>
       </div>
 
-      <a onClick={loginWithGoogle} className="social">
-          <FaGoogle />
-      </a>
+      {/** continue with google button*/}
+      <button onClick={loginWithGoogle} className="button-icon">
+        <FaGoogle />
+      </button>
 
       {/* Sign In */}
       <div className="my-4 text-center tracking-wider">
