@@ -8,6 +8,8 @@ import { auth, db } from "../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import isUsernameExists from "../utils/isUsernameExists";
+import { signInWithPopup } from "firebase/auth";
+import { googleProvider } from "../firebase";
 
 export function useAuth() {
   const [authUser, authLoading, error] = useAuthState(auth);
@@ -90,6 +92,43 @@ export function useRegister() {
   }
 
   return { register, isLoading, error };
+}
+
+export function useGoogleAuth() {
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  async function loginWithGoogle() {
+    setLoading(true);
+    setError("");
+
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+
+      // Check if the user already exists in the database
+      const userRef = doc(db, "users", result.user.uid);
+      const userSnapshot = await getDoc(userRef);
+
+      if (!userSnapshot.exists()) {
+        // If the user doesn't exist, add them to the database
+        await setDoc(userRef, {
+          id: result.user.uid,
+          username: result.user.displayName,
+          avatar: result.user.photoURL,
+          date: Date.now(),
+        });
+      }
+      console.log("user loged in");
+      navigate("/");
+    } catch (error) {
+      setError("Google sign-in failed");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { loginWithGoogle, isLoading, error };
 }
 
 export function useLogout() {

@@ -5,6 +5,7 @@ import { useAuth } from "../hooks/auth";
 import { usePosts } from "../hooks/posts";
 const ProfilePost = lazy(() => import("../components/profile/ProfilePost"));
 
+
 const Profile = () => {
   const { user, isLoading } = useAuth();
   const navigate = useNavigate();
@@ -13,8 +14,9 @@ const Profile = () => {
   let sumLikes = 0;
 
   if (isLoading || postsLoading) return null;
+  console.log("user id:",user?.id);
 
-  if (user?.id) {
+  if(user?.id){
     return (
       <m.div
         initial={{ opacity: 0 }}
@@ -23,22 +25,22 @@ const Profile = () => {
         className="h-full w-full max-w-[500px] m-auto bg-white p-4 flex flex-col justify-center items-center gap-4 text-black"
       >
         {/* User */}
-        {user.avatar ? (
+        {user?.avatar ? (
           <img
-            src={user.avatar}
+            src={user?.avatar}
             alt=""
             className="w-40 h-40 shadow-md shadow-gray-400 rounded-full object-cover"
           />
         ) : (
           <img
-            src={user.avatar}
+            src={user?.avatar}
             alt=""
             className="w-40 h-40 bg-black shadow-md shadow-gray-400 rounded-full object-cover"
           />
         )}
         <div className="flex flex-col justify-center items-center gap-1">
           <div className="text-xl font-semibold tracking-wider text-orange-600">
-            {user.username}
+            {user?.username}
           </div>
           <span className="opacity-50 text-sm text-center tracking-wider">
             front-end web developer
@@ -113,8 +115,9 @@ const Profile = () => {
         </div>
       </m.div>
     );
-  } else {
+  }else{
     navigate("/signin");
+    return null;
   }
 };
 
