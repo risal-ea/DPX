@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion as m } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { captionValidate, picValidate } from "../utils/form-validate";
 import { AiOutlinePicture } from "react-icons/ai";
@@ -35,7 +35,7 @@ const Post = () => {
       caption: data.caption,
     });
     reset();
-    navigate("/");
+    navigate("/home");
   }
 
   if (authLoading) return null;
