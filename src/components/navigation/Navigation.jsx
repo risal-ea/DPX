@@ -16,15 +16,14 @@ const Navigation = () => {
 
   return (
     <>
-      {location.pathname === "/signin" ||
-      location.pathname === "/signup" ? null : (
+      {location.pathname === "/" ? null : (
         <div className="w-full max-w-[500px] m-auto p-4 bg-white flex justify-between items-center text-black animate-animateOpacity">
           {/* Arrow Back / Menu Icon */}
           {location.pathname === "/search" ||
           location.pathname === "/profile" ||
           location.pathname === "/post" ? (
             <RiArrowLeftSLine
-              onClick={() => setSearchText("") & navigate("/")}
+              onClick={() => setSearchText("") & navigate("/home")}
               size={26}
               title="Go to Home"
               className={`${
@@ -45,7 +44,7 @@ const Navigation = () => {
 
           {/* Logo */}
           <Link
-            to={"/"}
+            to={"/home"}
             className={`${
               location.pathname === "/search" ||
               location.pathname === "/profile" ||
