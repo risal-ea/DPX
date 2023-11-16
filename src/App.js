@@ -8,7 +8,6 @@ const Profile = lazy(() => import("./routes/Profile"));
 const Search = lazy(() => import("./routes/Search"));
 const Post = lazy(() => import("./routes/Post"));
 const Signin = lazy(() => import("./routes/Signin"));
-const Signup = lazy(() => import("./routes/Signup"));
 const UserProfile = lazy(() => import("./routes/UserProfile"));
 /*  Loading Animation Component  */
 // import AnimationOnLoad from "./components/AnimationOnLoad";
@@ -78,15 +77,7 @@ function App() {
                 </Suspense>
               }
             />
-            {/* Sign Up */}
-            <Route
-              path="/signup"
-              element={
-                <Suspense>
-                  <Signup />
-                </Suspense>
-              }
-            />
+
           </Routes>
         </AnimatePresence>
       </SearchContextProvider>

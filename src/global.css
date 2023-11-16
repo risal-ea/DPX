@@ -17,3 +17,14 @@ button{
     justify-content: center;
     align-items: center;
 }
+
+.google-auth-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.google-auth-btn-txt{
+  font-weight: bolder;
+}
