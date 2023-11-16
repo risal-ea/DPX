@@ -116,7 +116,7 @@ const Profile = () => {
       </m.div>
     );
   }else{
-    navigate("/signin");
+    navigate("/");
     return null;
   }
 };

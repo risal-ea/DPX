@@ -25,7 +25,7 @@ function App() {
           <Routes location={location} key={location.pathName}>
             {/* Home */}
             <Route
-              path="/"
+              path="/home"
               element={
                 <Suspense>
                   <Home />
@@ -70,7 +70,7 @@ function App() {
             />
             {/* Sign In */}
             <Route
-              path="/signin"
+              path="/"
               element={
                 <Suspense>
                   <Signin />

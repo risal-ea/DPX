@@ -1,12 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  RiSearchLine,
-  RiCloseFill,
-  RiHome2Line,
-  RiAddFill,
-  RiUser3Line,
-} from "react-icons/ri";
+import { RiSearchLine, RiCloseFill, RiHome2Line, RiAddFill, RiUser3Line } from "react-icons/ri";
 import { MdOutlineExitToApp, MdOutlineLogin } from "react-icons/md";
 import { useAuth, useLogout } from "../../hooks/auth";
 
@@ -15,6 +9,12 @@ const NavigationMenu = ({ navMenu, setNavMenu, location }) => {
   const { user, isLoading } = useAuth();
 
   if (isLoading) return null;
+
+  const handleSignOut = async () => {
+    await logout();
+    setNavMenu(false);
+    window.location.href = "/"; // Redirect to "/" after signing out
+  };
 
   return (
     <div className="bg-white w-full h-screen flex justify-center items-center">
@@ -26,17 +26,14 @@ const NavigationMenu = ({ navMenu, setNavMenu, location }) => {
           navMenu ? "opacity-100 delay-500" : "opacity-0 delay-0"
         } absolute top-5 right-6 cursor-pointer duration-500`}
       >
-        <RiCloseFill
-          size={26}
-          className="hover:text-orange-600 duration-300 ease-in-out"
-        />
+        <RiCloseFill size={26} className="hover:text-orange-600 duration-300 ease-in-out" />
       </div>
 
       {/* Menu Links */}
       <div className="flex flex-col justify-center items-start gap-12 text-2xl font-semibold tracking-widest">
         {/* Home */}
         <Link
-          to={"/"}
+          to={"/home"}
           title="Home"
           onClick={() => setNavMenu(false)}
           className={`${
@@ -110,37 +107,28 @@ const NavigationMenu = ({ navMenu, setNavMenu, location }) => {
           <RiUser3Line size={24} />
           <div>PROFILE</div>
         </Link>
+
         {/* Sing Out / Sign In */}
         {user?.id ? (
           <div
             title="Sign Out"
-            onClick={() => setNavMenu(false) & logout()}
+            onClick={handleSignOut}
             className="flex justify-center items-center gap-4 text-black cursor-pointer opacity-50 hover:opacity-100 duration-500 ease-in-out relative"
           >
-            <div
-              className={`${
-                navMenu ? "-right-[300%] delay-[1000ms]" : "right-0 delay-0"
-              } bg-white w-full h-full absolute top-0 duration-500 z-10`}
-            ></div>
             <MdOutlineExitToApp size={24} />
             <div>SIGN OUT</div>
           </div>
         ) : (
           <Link
-            to={"/signin"}
+            to={"/"}
             title="Sign In"
             onClick={() => setNavMenu(false)}
             className={`${
-              location.pathname === "/signin"
+              location.pathname === "/"
                 ? "text-orange-600 opacity-100"
                 : "text-black opacity-50"
             } flex justify-center items-center gap-4 hover:opacity-100 duration-500 ease-in-out relative`}
           >
-            <div
-              className={`${
-                navMenu ? "-right-[300%] delay-[1000ms]" : "right-0 delay-0"
-              } bg-white w-full h-full absolute top-0 duration-500 z-10`}
-            ></div>
             <MdOutlineLogin size={24} />
             <div>SIGN IN</div>
           </Link>

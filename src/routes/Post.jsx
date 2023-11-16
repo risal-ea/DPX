@@ -139,7 +139,7 @@ const Post = () => {
       </m.form>
     );
   } else {
-    navigate("/signin");
+    navigate("/");
   }
 };
 

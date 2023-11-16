@@ -1,6 +1,6 @@
 import React from "react";
 import { motion as m } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AiOutlineMail, AiFillLock } from "react-icons/ai";
 import { emailValidate, passwordValidate } from "../utils/form-validate";
@@ -10,6 +10,17 @@ import "../global.css";
 const Signin = () => {
   const { login, isLoading, error } = useLogin();
   const { loginWithGoogle, isLoading: googleLoading, error: googleError } = useGoogleAuth();
+  const navigate = useNavigate();
+
+  // Handle the Google login
+  const handleGoogleLogin = async () => {
+    await loginWithGoogle();
+
+    // Check if the login was successful before redirecting
+    if (!googleError) {
+      navigate("/home");
+    }
+  };
 
   return (
     <m.div
@@ -20,7 +31,7 @@ const Signin = () => {
     >
       {/* Logo */}
       <Link
-        to={'/'}
+        to={'/home'}
         title="Home"
         className="group text-5xl font-bold mb-12 text-center tracking-widest"
       >
@@ -56,7 +67,7 @@ const Signin = () => {
       
 
         {/* Submit Button */}
-        <button onClick={loginWithGoogle} className="w-full my-2 p-3 bg-white hover:bg-orange-600 border-2 border-black hover:border-orange-600 text-black hover:text-white tracking-wider rounded-2xl shadow-none hover:shadow-md shadow-orange-600 font-bold duration-300 ease-in-out">
+        <button onClick={handleGoogleLogin} className="w-full my-2 p-3 bg-white hover:bg-orange-600 border-2 border-black hover:border-orange-600 text-black hover:text-white tracking-wider rounded-2xl shadow-none hover:shadow-md shadow-orange-600 font-bold duration-300 ease-in-out">
           {isLoading ? (
             <span className="animate-pulse">Loading...</span>
           ) : (
