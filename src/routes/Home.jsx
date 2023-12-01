@@ -9,11 +9,14 @@ const Home = () => {
   const { user, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
 
-  console.log("user object:", user); // Log the entire user object
+  // Log the entire user object
+  console.log("user object:", user);
+  // Log the user id
   console.log("user id:", user?.id);
 
   useEffect(() => {
-    console.log("authLoading:", authLoading); // Log the auth loading status
+    // Log the auth loading status
+    console.log("authLoading:", authLoading);
 
     // Check if the user is not available, then navigate to "/signin"
     if (!user?.id && !authLoading) {
@@ -21,11 +24,8 @@ const Home = () => {
     }
   }, [user, authLoading, navigate]);
 
-  if (user?.id) {
-    return <Posts posts={posts} isLoading={postsLoading} />;
-  } else {
-    return null;
-  }
+  // Render Posts component only if the user is authenticated
+  return user?.id ? <Posts posts={posts} isLoading={postsLoading} /> : null;
 };
 
 export default Home;
